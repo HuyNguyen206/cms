@@ -86,7 +86,7 @@ class CategoriesController extends Controller
     {
         //
         $data = $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:category'
         ]);
         try {
             $category->update($data);
@@ -105,5 +105,7 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         //
+        $category->delete();
+        return redirect(route('categories.index'))->with('success', 'Delete successfully');
     }
 }

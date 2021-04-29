@@ -7,20 +7,32 @@
             </div>
         @endif
         <div>
-            <a href="{{route('categories.create')}}" class="btn btn-primary mb-2 d-inline-block float-right">Create
-                category</a>
+            <a href="{{route('posts.create')}}" class="btn btn-primary mb-2 d-inline-block float-right">Create
+                posts</a>
         </div>
 
         <div class="card card-default" style="clear: both;">
             <div class="card-header">
-                Categories
+                Post
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
                     <tr>
                         <th>
-                            Name
+                            Title
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Content
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Published at
                         </th>
                         <th>
                             Action
@@ -28,15 +40,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($categories as $cat)
+                    @foreach($posts as $post)
                         <tr>
                             <td>
-                                {{$cat->name}}
+                                {{$post->title}}
+                            </td>
+                            <td>
+                                {{$post->description}}
+                            </td> <td>
+                                {{$post->content}}
+                            </td> <td>
+                                {{$post->image}}
+                            </td> <td>
+                                {{$post->published_at}}
                             </td>
                             <td>
                                 <div class="btn btn-group">
-                                    <a href="{{route('categories.edit', $cat->id)}}" class="btn btn-info">Edit</a>
-                                    <a data-cate-id="{{$cat->id}}" class="btn btn-danger delete-cat">Delete</a>
+                                    <a href="{{route('posts.edit', $post->id)}}" class="btn btn-info">Edit</a>
+                                    <a data-post-id="{{$post->id}}" class="btn btn-danger delete-cat">Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -46,14 +67,14 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="category-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="" method="post" id="category-delete">
+    <div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form action="" method="post" id="post-delete">
             @csrf
             @method('delete')
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Post</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -74,12 +95,12 @@
 @section('script')
     <script>
         $(function(){
-            $('.delete-cat').click(function(){
-                let cate_id = $(this).data('cate-id')
-                let form = document.querySelector('#category-delete')
-                form.action = "{{url('/categories/')}}" + "/"+ cate_id
-                $('#category-modal').modal('show')
-                console.log(cate_id)
+            $('.delete-post').click(function(){
+                let post_id = $(this).data('post-id')
+                let form = document.querySelector('#post-delete')
+                form.action = "{{url('/posts/')}}" + "/"+ post_id
+                $('#post-modal').modal('show')
+                console.log(post_id)
             })
 
         })
@@ -89,7 +110,7 @@
         // })
         // function deleteCategory(event, id){
         //     console.log(id)
-        //     $('#category-modal').modal('show')
+        //     $('#post-modal').modal('show')
         // }
     </script>
 @endsection

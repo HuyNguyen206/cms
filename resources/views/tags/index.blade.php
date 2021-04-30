@@ -2,13 +2,13 @@
 @section('content')
     <div>
         <div>
-            <a href="{{route('categories.create')}}" class="btn btn-primary mb-2 d-inline-block float-right">Create
-                category</a>
+            <a href="{{route('tags.create')}}" class="btn btn-primary mb-2 d-inline-block float-right">Create
+                Tag</a>
         </div>
 
         <div class="card card-default" style="clear: both;">
             <div class="card-header">
-                Categories
+                Tags
             </div>
             <div class="card-body">
                 <table class="table">
@@ -18,26 +18,20 @@
                             Name
                         </th>
                         <th>
-                            Post count
-                        </th>
-                        <th>
                             Action
                         </th>
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($categories as $cat)
+                    @forelse($tags as $tag)
                         <tr>
                             <td>
-                                {{$cat->name}}
-                            </td>
-                            <td>
-                                {{$cat->posts->count()}}
+                                {{$tag->name}}
                             </td>
                             <td>
                                 <div class="btn btn-group">
-                                    <a href="{{route('categories.edit', $cat->id)}}" class="btn btn-info">Edit</a>
-                                    <a data-cate-id="{{$cat->id}}" class="btn btn-danger delete-cat">Delete</a>
+                                    <a href="{{route('tags.edit', $tag->id)}}" class="btn btn-info">Edit</a>
+                                    <a data-tag-id="{{$tag->id}}" class="btn btn-danger delete-tag">Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -51,14 +45,14 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="category-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form action="" method="post" id="category-delete">
+    <div class="modal fade" id="tag-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form action="" method="post" id="tag-delete">
             @csrf
             @method('delete')
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tag</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -79,12 +73,12 @@
 @section('script')
     <script>
         $(function(){
-            $('.delete-cat').click(function(){
-                let cate_id = $(this).data('cate-id')
-                let form = document.querySelector('#category-delete')
-                form.action = "{{url('/categories/')}}" + "/"+ cate_id
-                $('#category-modal').modal('show')
-                console.log(cate_id)
+            $('.delete-tag').click(function(){
+                let tag_id = $(this).data('tag-id')
+                let form = document.querySelector('#tag-delete')
+                form.action = "{{url('/tags/')}}" + "/"+ tag_id
+                $('#tag-modal').modal('show')
+                console.log(tag_id)
             })
 
         })

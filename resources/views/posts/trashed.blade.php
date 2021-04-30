@@ -21,9 +21,6 @@
                             Description
                         </th>
                         <th>
-                            Category
-                        </th>
-                        <th>
                             Content
                         </th>
                         <th>
@@ -38,19 +35,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($posts as $post)
+                    @foreach($posts as $post)
                         <tr>
                             <td>
                                 {{$post->title}}
                             </td>
                             <td>
                                 {{$post->description}}
-                            </td>
-                            <td>
-                                <a href='{{route('categories.edit', $post->category->id)}}'>
-                                    {{$post->category->name}}
-                                </a>
-
                             </td>
                             <td>
                                 {{$post->content}}
@@ -65,16 +56,16 @@
                             </td>
                             <td>
                                 <div class="btn btn-group">
-                                    <a href="{{route('posts.edit', $post->id)}}" class="btn btn-info text-white">Edit</a>
-                                    <a data-post-id="{{$post->id}}" class="btn btn-danger delete-post">Delete</a>
+                                    <form action="{{route('posts.restore', $post->id)}}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <button class="btn btn-info">Restore</button>
+                                    </form>
+                                    <a data-post-id='{{$post->id}}' class="delete-post btn btn-danger">Force delete</a>
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="text-center">No data</td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                     </tbody>
                 </table>
             </div>
@@ -111,7 +102,7 @@
             $('.delete-post').click(function () {
                 let post_id = $(this).data('post-id')
                 let form = document.querySelector('#post-delete')
-                form.action = "{{url('/posts/')}}" + "/" + post_id
+                form.action = "{{url('/posts/force-delete')}}" + "/" + post_id
                 $('#post-modal').modal('show')
                 console.log(post_id)
             })

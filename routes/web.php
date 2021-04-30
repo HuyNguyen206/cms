@@ -22,8 +22,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function(){
+    Route::get('posts/trashed-post','PostController@trashedPost')->name('posts.trashed');
+    Route::delete('posts/force-delete/{post}','PostController@forceDestroy')->name('posts.force-delete');
     Route::resources([
         'categories' => 'CategoriesController',
-        'posts' => 'PostController'
+        'posts' => 'PostController',
+        'tags' => 'TagController'
     ]);
+    Route::put('posts/restore-post/{post}','PostController@restorePost')->name('posts.restore');
 });

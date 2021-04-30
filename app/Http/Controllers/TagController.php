@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-        $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        $tags = Tag::all();
+        return view('tags.index', compact('tags'));
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
-        return view('categories.create');
+        return view('tags.create');
     }
 
     /**
@@ -40,24 +40,23 @@ class CategoriesController extends Controller
     {
         //
         $data = $request->validate([
-            'name' => 'required|unique:categories'
+            'name' => 'required|unique:tags'
         ]);
         try {
-            Category::create($data);
-            return redirect(route('categories.index'))->with('success', 'Create category successfull');
+            Tag::create($data);
+            return redirect(route('tags.index'))->with('success', 'Create tag successfull');
         }catch (\Throwable $ex){
             return redirect()->back()->with('error', $ex->getMessage());
         }
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
         //
     }
@@ -65,32 +64,31 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Tag $tag)
     {
+        return view('tags.edit', compact('tag'));
         //
-
-        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
         //
         $data = $request->validate([
-            'name' => 'required|unique:categories'
+            'name' => 'required|unique:tags'
         ]);
         try {
-            $category->update($data);
-            return redirect(route('categories.index'))->with('success', 'Update category successfull');
+            $tag->update($data);
+            return redirect(route('tags.index'))->with('success', 'Update tag successfull');
         }catch (\Throwable $ex){
             return redirect()->back()->with('error', $ex->getMessage());
         }
@@ -99,13 +97,13 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
         //
-        $category->delete();
-        return redirect(route('categories.index'))->with('success', 'Delete successfully');
+        $tag->delete();
+        return redirect(route('tags.index'))->with('success', 'Delete successfully');
     }
 }

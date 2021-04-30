@@ -17,6 +17,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css')
 </head>
 <body>
 <div id="app">
@@ -86,9 +87,27 @@
                             <li class="list-group-item">
                                 <a href="{{route('categories.index')}}">Category</a>
                             </li>
+                            <li class="list-group-item">
+                                <a href="{{route('tags.index')}}">Tag</a>
+                            </li>
+                        </ul>
+                        <ul class="list-group mt-5">
+                            <li class="list-group-item mt-5">
+                                <a href="{{route('posts.trashed')}}">Trashed post</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-8">
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{session('success')}}
+                            </div>
+                        @endif
+                            @if(session('message'))
+                                <div class="alert alert-info">
+                                    {{session('message')}}
+                                </div>
+                            @endif
                         @yield('content')
                     </div>
                 </div>

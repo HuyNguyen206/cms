@@ -1,11 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div>
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{session('error')}}
-            </div>
-        @endif
         <div class="card card-default">
             <div class="card-header">
                 Create Categories
@@ -53,7 +48,7 @@
                     @if ($tags->count())
                         <div class="form-group">
                             <label for="">Tag</label>
-                            <select class="form-control" name="tag_id[]" id="" multiple>
+                            <select class="form-control tag-selector" name="tag_id[]" id="" multiple>
                                 @foreach($tags as $tag)
                                     <option value="{{$tag->id}}">{{$tag->name}}</option>
                                 @endforeach
@@ -80,11 +75,13 @@
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js" integrity="sha512-/1nVu72YEESEbcmhE/EvjH/RxTg62EKvYWLG3NdeZibTCuEtW5M4z3aypcvsoZw03FAopi94y04GhuqRU9p+CQ==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(function(){
             $("#published_at").flatpickr({
                 enableTime:true
             });
+            $('.tag-selector').select2();
         })
     </script>
 @endsection
@@ -92,4 +89,5 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css" integrity="sha512-CWdvnJD7uGtuypLLe5rLU3eUAkbzBR3Bm1SFPEaRfvXXI2v2H5Y0057EMTzNuGGRIznt8+128QIDQ8RqmHbAdg==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection

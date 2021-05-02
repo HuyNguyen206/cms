@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Post;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use PaginateRoute;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -31,8 +33,14 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
+        PaginateRoute::registerMacros();
         parent::boot();
+        Route::bind('postSlugId', function ($value) {
+            $array = explode('-', $value);
+            $idWithHtml = explode('.', $array[count($array) - 1]);
+            $postId = $idWithHtml[0];
+            return Post::findOrFail($postId);
+        });
     }
 
     /**

@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/','WelcomeController@index')->name('welcome');
+// Generates /users & /users/page/{page}
+Route::paginate('/', 'WelcomeController@index')->name('welcome');
+Route::paginate('categories/{category}', 'WelcomeController@viewPostOfCategory')->name('categories.posts');
+Route::paginate('tags/{tag}', 'WelcomeController@viewPostOfTag')->name('tags.posts');
+Route::get('post/{postSlugId}', 'WelcomeController@viewPost')->name('posts.detail');
 
 Auth::routes();
 
@@ -24,10 +27,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth')->group(function(){
     Route::get('posts/trashed-post','PostController@trashedPost')->name('posts.trashed');
     Route::delete('posts/force-delete/{post}','PostController@forceDestroy')->name('posts.force-delete');
+    Route::patch('users/make-admin/{user}','UserController@makeAdmin')->name('users.make-admin');
     Route::resources([
         'categories' => 'CategoriesController',
         'posts' => 'PostController',
-        'tags' => 'TagController'
+        'tags' => 'TagController',
+        'users' => 'UserController'
     ]);
     Route::put('posts/restore-post/{post}','PostController@restorePost')->name('posts.restore');
 });

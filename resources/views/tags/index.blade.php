@@ -18,6 +18,9 @@
                             Name
                         </th>
                         <th>
+                            Post count
+                        </th>
+                        <th>
                             Action
                         </th>
                     </tr>
@@ -27,6 +30,9 @@
                         <tr>
                             <td>
                                 {{$tag->name}}
+                            </td>
+                            <td>
+                                {{$tag->posts->count()}}
                             </td>
                             <td>
                                 <div class="btn btn-group">

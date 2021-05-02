@@ -105,6 +105,9 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         //
+        if($category->posts->count()){
+            return redirect()->back()->withError('Can not delete this category because it has some post');
+        }
         $category->delete();
         return redirect(route('categories.index'))->with('success', 'Delete successfully');
     }

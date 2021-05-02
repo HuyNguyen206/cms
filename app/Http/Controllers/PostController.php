@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -64,8 +66,13 @@ class PostController extends Controller
                 $path = $image->store('post-image');
                 $data['image_path'] = $path;
             }
+            $data['slug'] = Str::slug($request->title);
+            $data['user_id'] = auth()->id();
+//            $post = auth()->user()->posts()->create($data);
             $post = Post::create($data);
-            $post->tags()->attach($request->tag_id);
+            if($request->has('tag_id')){
+                $post->tags()->attach($request->tag_id);
+            }
             return redirect(route('posts.index'))->with('success', 'Create post successfull');
         } catch (\Throwable $ex) {
             return redirect()->back()->with('error', $ex->getMessage());
@@ -93,7 +100,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
-        return view('posts.edit')->withPost($post)->withCategories(Category::all());
+        return view('posts.edit')->withPost($post)->withCategories(Category::all())->withTags(Tag::all());
     }
 
     /**
@@ -124,6 +131,10 @@ class PostController extends Controller
                 $path = $image->store('post-image');
                 $data['image_path'] = $path;
             }
+            if($request->has('tag_id')){
+                $post->tags()->sync($request->tag_id);
+            }
+            $data['slug'] = Str::slug($request->title);
             $post->update($data);
             return redirect(route('posts.index'))->with('success', 'Update post successfull');
         } catch (\Throwable $ex) {

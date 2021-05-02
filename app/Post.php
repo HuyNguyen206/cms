@@ -23,4 +23,24 @@ class Post extends Model
     public function tags(){
         return $this->belongsToMany(Tag::class, 'post_tag');
     }
+
+    public function getPostParam(){
+      return $this->slug.'-'.$this->id.'.html';
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeSearchPosts($query){
+        $search = \request()->query('search');
+        if($search){
+            $posts = $query->where('title', 'like', "%$search%");
+        }
+        else{
+            $posts = $query;
+        }
+      return $posts;
+    }
+
 }

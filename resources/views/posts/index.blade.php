@@ -24,9 +24,6 @@
                             Category
                         </th>
                         <th>
-                            Content
-                        </th>
-                        <th>
                             Image
                         </th>
                         <th>
@@ -51,9 +48,6 @@
                                     {{$post->category->name}}
                                 </a>
 
-                            </td>
-                            <td>
-                                {{$post->content}}
                             </td>
                             <td>
                                 @if($post->image_path)

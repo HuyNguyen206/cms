@@ -1,100 +1,72 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('frontend.layout.app-frontend')
+@section('header')
+    <header class="header text-center text-white"
+            style="background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%);">
+        <div class="container">
 
-        <title>Laravel</title>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+                    <h1>Latest Blog Posts</h1>
+                    <p class="lead-2 opacity-90 mt-6">Read and get updated on how we progress</p>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+
         </div>
-    </body>
-</html>
+    </header><!-- /.header -->
+@endsection
+@section('title')
+    TheSaaS — Blog with sidebar
+@endsection
+@section('content')
+    <div class="section bg-gray">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-8 col-xl-9">
+                    <div class="row gap-y">
+                        @forelse ($posts as $post)
+                            <div class="col-md-6">
+                                <div class="card border hover-shadow-6 mb-6 d-block">
+                                    @if ($post->image_path)
+                                        <a href="{{route('posts.detail', $post->getPostParam())}}"><img class="card-img-top" src="{{asset('storage/'.$post->image_path)}}"
+                                                         alt="Card image cap"></a>
+                                    @endif
+
+                                    <div class="p-6 text-center">
+                                        <p><a class="small-5 text-lighter text-uppercase ls-2 fw-400" href="#">{{$post->category->name}}</a>
+                                        </p>
+                                        <h5 class="mb-0"><a class="text-dark" href="{{route('posts.detail', $post->getPostParam())}}">{{$post->title}}</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            @if($search = request()->query('search'))
+                                <p class="text-center">
+                                    No result found for query: <strong>{{$search}}</strong>
+                                </p>
+                            @else
+                                <p class="text-center">
+                                    No post
+                                </p>
+                            @endif
+                        @endforelse
+
+
+                    </div>
+                {!! $posts->links() !!}
+
+{{--                    <nav class="flexbox mt-30">--}}
+{{--                        <a class="btn btn-white disabled"><i class="ti-arrow-left fs-9 mr-4"></i> Newer</a>--}}
+{{--                        <a class="btn btn-white" href="#">Older <i class="ti-arrow-right fs-9 ml-4"></i></a>--}}
+{{--                    </nav>--}}
+                </div>
+
+                @include('frontend.components.right-sidebar')
+
+            </div>
+        </div>
+    </div>
+@endsection

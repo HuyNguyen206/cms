@@ -14,7 +14,9 @@
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^2.4"
+        "laravel/ui": "^2.4",
+        "michaloravec/laravel-paginateroute": "^1.0",
+        "thomaswelton/laravel-gravatar": "~1.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "v2.8.2",

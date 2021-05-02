@@ -11,15 +11,7 @@ class WelcomeController extends Controller
 {
     //
     public function index(){
-//        dd(url()->current());
-//        dd(\request()->route()->getName());
-        $search = \request()->query('search');
-        if($search){
-            $posts = Post::where('title', 'like', "%$search%")->paginate(2);
-        }
-        else{
-            $posts = Post::paginate(2);
-        }
+        $posts = $this->getPostPagination(new Post());
         return view('welcome', compact('posts'));
     }
 
@@ -28,24 +20,10 @@ class WelcomeController extends Controller
     }
 
     public function viewPostOfCategory(Category $category){
-//        $search = \request()->query('search');
-//        if($search){
-//            $posts = $category->posts()->where('title', 'like', "%$search%")->paginate(2);
-//        }
-//        else{
-//            $posts = $category->posts()->paginate(2);
-//        }
         $posts = $this->getPostPagination($category->posts());
         return view('frontend.category', compact('category', 'posts'));
     }
     public function viewPostOfTag(Tag $tag){
-//        $search = \request()->query('search');
-//        if($search){
-//            $posts = $tag->posts()->where('title', 'like', "%$search%")->paginate(2);
-//        }
-//        else{
-//            $posts = $tag->posts()->paginate(2);
-//        }
        $posts = $this->getPostPagination($tag->posts());
         return view('frontend.tag', compact('tag', 'posts'));
     }
@@ -54,10 +32,10 @@ class WelcomeController extends Controller
 //        return $posts->searchPosts()->paginate($paginateNumber);
         $search = \request()->query('search');
         if($search){
-            $posts = $posts->where('title', 'like', "%$search%")->paginate($paginateNumber);
+            $posts = $posts->published()->where('title', 'like', "%$search%")->paginate($paginateNumber);
         }
         else{
-            $posts = $posts->paginate($paginateNumber);
+            $posts = $posts->published()->paginate($paginateNumber);
         }
         return $posts;
         }

@@ -79,7 +79,8 @@
     <script>
         $(function(){
             $("#published_at").flatpickr({
-                enableTime:true
+                enableTime:true,
+                enableSeconds:true
             });
             $('.tag-selector').select2();
         })

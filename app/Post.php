@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
@@ -11,6 +12,7 @@ class Post extends Model
     //
     use SoftDeletes;
     protected $guarded = [];
+    protected $dates = ['published_at'];
 
     public function deleteImage(){
         Storage::delete($this->image_path);
@@ -42,5 +44,16 @@ class Post extends Model
         }
       return $posts;
     }
+
+    public function scopePublished($query){
+       return $query->where('published_at', '<=', now());
+    }
+
+//        protected static function booted()
+//        {
+//          static::addGlobalScope('published_at', function (Builder $builder){
+//              $builder->where('published_at', '<=', now());
+//          })
+//        }
 
 }

@@ -30,11 +30,14 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-12 mx-auto">
 
                     {!! $post->content !!}
 
                 </div>
+            </div>
+            <div class="mt-3">
+                <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
             </div>
 
                     <div class="gap-xy-2 mt-6">
@@ -126,4 +129,7 @@
 
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-608e56495ef6a28a"></script>
+
 @endsection

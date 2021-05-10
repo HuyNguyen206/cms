@@ -15,6 +15,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'content' => $faker->paragraph(5),
         'description' => $faker->paragraph(1),
         'category_id' => 1,
-        'user_id' => User::all()->random()->id
+        'user_id' => User::all()->random()->id,
+        'published_at' => \Illuminate\Support\Carbon::yesterday()
     ];
 });

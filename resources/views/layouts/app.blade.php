@@ -18,6 +18,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
+    <link rel="stylesheet" href="{{asset('css/toastr.css')}}">
 </head>
 <body>
 <div id="app">
@@ -106,21 +107,21 @@
                         </ul>
                     </div>
                     <div class="col-md-8">
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{session('success')}}
-                            </div>
-                        @endif
-                            @if(session('message'))
-                                <div class="alert alert-info">
-                                    {{session('message')}}
-                                </div>
-                            @endif
-                            @if(session('error'))
-                                <div class="alert alert-danger">
-                                    {{session('error')}}
-                                </div>
-                            @endif
+{{--                        @if(session('success'))--}}
+{{--                            <div class="alert alert-success">--}}
+{{--                                {{session('success')}}--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
+{{--                            @if(session('message'))--}}
+{{--                                <div class="alert alert-info">--}}
+{{--                                    {{session('message')}}--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
+{{--                            @if(session('error'))--}}
+{{--                                <div class="alert alert-danger">--}}
+{{--                                    {{session('error')}}--}}
+{{--                                </div>--}}
+{{--                            @endif--}}
                         @yield('content')
                     </div>
                 </div>
@@ -132,7 +133,18 @@
     </main>
 </div>
 <!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{!! mix('js/app.js') !!}"></script>
 @yield('script')
+<script>
+    @if(session('success'))
+    toastr.success('{{session('success')}}')
+    @endif
+    @if(session('error'))
+    toastr.error('{{session('error')}}')
+    @endif
+    @if(session('message'))
+    toastr.warning('{{session('message')}}')
+    @endif
+</script>
 </body>
 </html>

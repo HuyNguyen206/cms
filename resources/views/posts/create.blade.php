@@ -3,7 +3,7 @@
     <div>
         <div class="card card-default">
             <div class="card-header">
-                Create Categories
+                Create posts
             </div>
             <div class="card-body">
                 <form action="{{route('posts.store')}}" method='post' enctype="multipart/form-data">

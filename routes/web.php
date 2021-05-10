@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/','WelcomeController@index')->name('welcome');
 // Generates /users & /users/page/{page}
 Route::paginate('/', 'WelcomeController@index')->name('welcome');
-Route::paginate('categories/{category}', 'WelcomeController@viewPostOfCategory')->name('categories.posts');
+Route::paginate('categories/type/{category}', 'WelcomeController@viewPostOfCategory')->name('categories.posts');
 Route::paginate('tags/{tag}', 'WelcomeController@viewPostOfTag')->name('tags.posts');
 Route::get('post/{postSlugId}', 'WelcomeController@viewPost')->name('posts.detail');
 

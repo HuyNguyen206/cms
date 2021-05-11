@@ -49,7 +49,14 @@
                                         <button class="btn btn-success">Make admin</button>
                                     </form>
                                 @else
-                                    <span class="badge badge-primary">Admin</span>
+                                    <div class="d-flex align-items-center">
+                                        <span class="badge badge-primary">Admin</span>
+                                        <form action="{{route('users.remove-admin', $user->id)}}" method="post" class="ml-2">
+                                            @csrf
+                                            @method('patch')
+                                            <button class="btn btn-warning">Remove admin</button>
+                                        </form>
+                                    </div>
                                 @endif
                             </td>
 {{--                            <td>--}}

@@ -51,7 +51,7 @@
                             </td>
                             <td>
                                 @if($post->image_path)
-                                    <img class="w-100" src="{{asset('storage/'.$post->image_path)}}" alt="">
+                                    <img class="w-100" src="{{$post->image}}" alt="">
                                     @endif
                             </td>
                             <td>

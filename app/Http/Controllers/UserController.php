@@ -102,6 +102,21 @@ class UserController extends Controller
     }
 
     /**
+     *
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function removeAdmin(Request $request, User $user)
+    {
+        //
+        $user->role = 'writer';
+        $user->save();
+        return redirect()->back()->withSuccess('Update successfully');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\User  $user

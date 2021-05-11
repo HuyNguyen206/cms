@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function(){
     Route::get('posts/trashed-post','PostController@trashedPost')->name('posts.trashed');
     Route::delete('posts/force-delete/{post}','PostController@forceDestroy')->name('posts.force-delete');
     Route::patch('users/make-admin/{user}','UserController@makeAdmin')->name('users.make-admin');
+    Route::patch('users/remove-admin/{user}','UserController@removeAdmin')->name('users.remove-admin');
     Route::resources([
         'categories' => 'CategoriesController',
         'posts' => 'PostController',

@@ -49,6 +49,10 @@ class Post extends Model
        return $query->where('published_at', '<=', now());
     }
 
+    public function getImageAttribute(){
+        return asset('storage/'.$this->image_path) ;
+    }
+
 //        protected static function booted()
 //        {
 //          static::addGlobalScope('published_at', function (Builder $builder){

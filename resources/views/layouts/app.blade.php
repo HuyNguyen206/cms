@@ -129,7 +129,6 @@
         @else
             @yield('content')
         @endauth
-
     </main>
 </div>
 <!-- Scripts -->

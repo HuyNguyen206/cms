@@ -22,7 +22,12 @@ class UserSeeder extends Seeder
             'name' => 'huy nguyen',
             'role' => 'admin'
         ]);
+
            factory(\App\User::class, 5)->create();
+
+        foreach(\App\User::all() as $user){
+            $user->profile()->save(factory(\App\Profile::class)->make());
+        }
 
     }
 }

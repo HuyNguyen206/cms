@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -20,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('users.index')->withUsers(User::all());
+        return view('users.index')->withUsers(User::with('profile')->get());
     }
 
     /**
@@ -31,6 +33,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('users.create');
     }
 
     /**
@@ -42,6 +45,29 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+
+            $data = $request->validate([
+                'name' => 'required',
+                'email' => 'email|unique:users',
+                'password' => 'required|confirmed',
+                'avatar' => 'image'
+            ]);
+        try {
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password'])
+            ]);
+            if($avatar = $request->file('avatar')){
+                $path = $avatar->store('user-image');
+                $user->profile()->create([
+                    'avatar' => $path
+                ]);
+            }
+            return redirect()->route('users.index')->withSuccess('Create user successfully');
+        }catch (\Throwable $ex){
+            return redirect()->route('users.index')->withError($ex->getMessage());
+        }
     }
 
     /**
@@ -77,12 +103,32 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //
-        $data = $request->validate([
+        $request->validate([
             'name' => 'required',
-            'about' => ''
-
+            'avatar' => 'image',
+            'facebook' => 'url',
+            'youtube' => 'url'
         ]);
-        $user->update($data);
+        $updateDataUser = [
+            'name' => $request->name,
+        ];
+        if($request->password){
+            $updateDataUser['password'] = bcrypt($request->password);
+        }
+        $user->update($updateDataUser);
+
+        $updateDataProfile = [
+            'about' => $request->about,
+            'facebook' => $request->facebook,
+            'youtube' => $request->youtube
+        ];
+        if($request->avatar){
+            if($user->profile && $user->profile->avatar){
+                Storage::delete($user->profile->avatar);
+            }
+            $updateDataProfile['avatar'] = $request->avatar->store('user-image');
+        }
+        Profile::updateOrCreate(['user_id' => $user->id], $updateDataProfile);
         return redirect()->back()->withSuccess('Update successfully');
     }
 

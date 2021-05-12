@@ -1,17 +1,21 @@
+
 @extends('layouts.app')
+@php
+$profile = $user->profile;
+@endphp
 @section('content')
     <div>
         <div class="card card-default">
             <div class="card-header">
-                Update profile
+                Edit profile
             </div>
             <div class="card-body">
-                <form action="{{route('users.update', $user->id)}}" method='post'>
-                    @csrf
+                <form action="{{route('users.update', $user->id)}}" method='post' enctype="multipart/form-data">
                     @method('put')
+                    @csrf
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input type="text" name="name" value="{{old('name', $user->name)}}" class="form-control @error('name') is-invalid @enderror">
+                        <input type="text" value="{{old('name', $user->name)}}" name="name" class="form-control @error('name') is-invalid @enderror">
                         @error('name')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -19,9 +23,56 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                        @error('password')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Confirm password</label>
+                        <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
+                        @error('password_confirmation')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Avatar</label>
+                        <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror">
+                        @error('avatar')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                        @if($profile && $profile->avatar)
+                            <img src="{{asset('storage/'.$profile->avatar)}}" alt="" style="width: 100px" class="mt-2">
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label for="">Facebook</label>
+                        <input type="text" value="{{old('facebook', $profile->facebook ?? null)}}" name="facebook" class="form-control @error('facebook') is-invalid @enderror">
+                        @error('facebook')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="">Youtube</label>
+                        <input type="text"  value="{{old('youtube', $profile->youtube ?? null)}}"name="youtube" class="form-control @error('youtube') is-invalid @enderror">
+                        @error('youtube')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="">About</label>
-                        <input id="about" type="hidden" value="{{old('about', $user->about)}}" name="about">
-                        <trix-editor input="about" ></trix-editor>
+                        <textarea name="about" id="about" cols="30" rows="10">{{old('about', $profile->about ?? null)}}</textarea>
                     </div>
                     <button class="btn btn-success">Update</button>
                 </form>
@@ -31,9 +82,15 @@
 
 @endsection
 
+
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js" integrity="sha512-/1nVu72YEESEbcmhE/EvjH/RxTg62EKvYWLG3NdeZibTCuEtW5M4z3aypcvsoZw03FAopi94y04GhuqRU9p+CQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(function(){
+            $('#about').summernote()
+        })
+    </script>
 @endsection
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css" integrity="sha512-CWdvnJD7uGtuypLLe5rLU3eUAkbzBR3Bm1SFPEaRfvXXI2v2H5Y0057EMTzNuGGRIznt8+128QIDQ8RqmHbAdg==" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @endsection

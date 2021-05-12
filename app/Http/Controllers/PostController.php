@@ -37,6 +37,9 @@ class PostController extends Controller
     public function create()
     {
         //
+        if(!Category::count() || !Tag::count()){
+            return redirect()->back()->withError('You must have some categories and tags to create a post');
+        }
         return view('posts.create')->withCategories(Category::all())->withTags(Tag::all());
     }
 

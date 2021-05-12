@@ -29,11 +29,13 @@ Route::middleware('auth')->group(function(){
     Route::delete('posts/force-delete/{post}','PostController@forceDestroy')->name('posts.force-delete');
     Route::patch('users/make-admin/{user}','UserController@makeAdmin')->name('users.make-admin');
     Route::patch('users/remove-admin/{user}','UserController@removeAdmin')->name('users.remove-admin');
+    Route::get('settings/active-setting', 'SettingController@getActiveSetting')->name('settings.active');
     Route::resources([
         'categories' => 'CategoriesController',
         'posts' => 'PostController',
         'tags' => 'TagController',
-        'users' => 'UserController'
+        'users' => 'UserController',
+        'settings' => 'SettingController'
     ]);
     Route::put('posts/restore-post/{post}','PostController@restorePost')->name('posts.restore');
 });

@@ -89,6 +89,9 @@
                                 <li class="list-group-item">
                                     <a href="{{route('users.index')}}">User</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <a href="{{route('settings.active')}}">Setting</a>
+                                </li>
                             @endif
                             <li class="list-group-item">
                                 <a href="{{route('posts.index')}}">Post</a>
@@ -98,6 +101,9 @@
                             </li>
                             <li class="list-group-item">
                                 <a href="{{route('tags.index')}}">Tag</a>
+                            </li>
+                                <li class="list-group-item">
+                                <a href="{{route('users.edit', auth()->id())}}">My Profile</a>
                             </li>
                         </ul>
                         <ul class="list-group mt-5">

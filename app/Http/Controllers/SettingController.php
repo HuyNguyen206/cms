@@ -76,14 +76,15 @@ class SettingController extends Controller
     public function update(Request $request, Setting $setting)
     {
         //
-        $request->validate([
+        $data = $request->validate([
             'site_name' => 'required',
             'site_address' => 'required',
             'contact_phone' => 'required',
-            'contact_email' => 'required'
+            'contact_email' => 'required',
+            'about' => ''
         ]);
-
-        $setting->update($request->all());
+        unset($data['files']);
+        $setting->update($data);
         return back()->with('success', 'Update setting sucessfully');
     }
 

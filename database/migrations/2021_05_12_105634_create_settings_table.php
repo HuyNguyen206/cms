@@ -19,6 +19,7 @@ class CreateSettingsTable extends Migration
             $table->string('site_address');
             $table->string('contact_phone');
             $table->string('contact_email');
+            $table->text('about')->nullable();
             $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();

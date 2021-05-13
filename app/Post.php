@@ -50,7 +50,7 @@ class Post extends Model
     }
 
     public function getImageAttribute(){
-        return asset('storage/'.$this->image_path) ;
+        return $this->image_path ? asset('storage/'.$this->image_path) : null ;
     }
 
 //        protected static function booted()
@@ -59,5 +59,13 @@ class Post extends Model
 //              $builder->where('published_at', '<=', now());
 //          })
 //        }
+
+    public function nextPost(){
+            return Post::where('created_at', '<', $this->created_at)->latest()->first();
+    }
+
+    public function previousPost(){
+            return Post::where('created_at', '>', $this->created_at)->oldest()->first();
+    }
 
 }

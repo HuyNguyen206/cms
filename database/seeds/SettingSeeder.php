@@ -16,7 +16,8 @@ class SettingSeeder extends Seeder
             'site_name' => 'Laravel\'s blog',
             'site_address' => 'Vietnam Ho Chi Minh city',
             'contact_phone' => '094212232',
-            'contact_email' => 'laravel@forum.com'
+            'contact_email' => 'laravel@forum.com',
+            'about' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque culpa cumque est eum excepturi nihil nisi, pariatur voluptatibus. Dolorum eligendi ex maiores nam obcaecati officiis provident quidem quis quod unde?'
         ]);
     }
 }

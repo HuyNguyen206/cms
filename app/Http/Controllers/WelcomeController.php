@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\Setting;
 use App\Tag;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,12 @@ class WelcomeController extends Controller
     //
     public function index(){
         $posts = $this->getPostPagination(new Post());
-        return view('welcome', compact('posts'));
+        $latestPosts = Post::latest();
+        return view('welcome', compact('posts'))->withTitle(Setting::firstOrFail()->site_name)
+            ->withFirstPost($latestPosts->first())
+            ->withSecondPost($latestPosts->skip(1)->take(1)->first())
+            ->withThirdPost($latestPosts->skip(2)->take(1)->first())
+            ->withLatestCategories(Category::whereHas('posts')->latest()->take(3)->get());
     }
 
     public function viewPost(Post $post){

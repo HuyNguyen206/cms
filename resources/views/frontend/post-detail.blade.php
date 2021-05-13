@@ -1,116 +1,215 @@
 @extends('frontend.layout.app-frontend')
-@section('header')
-    <header class="header text-white h-fullscreen pb-80" style="background-image: url({{asset('storage/'.$post->image_path)}});" data-overlay="9">
-        <div class="container text-center">
-
-            <div class="row h-100">
-                <div class="col-lg-8 mx-auto align-self-center">
-
-                    <p class="opacity-70 text-uppercase small ls-1">{{$post->category->name}}</p>
-                    <h1 class="display-4 mt-7 mb-8">{{$post->title}}</h1>
-                    <p><span class="opacity-70 mr-1">By</span> <a class="text-white" href="#">{{$post->user->name}}</a></p>
-                    <p><img class="avatar avatar-sm" src="{{Gravatar::src($post->user->email)}}" alt="..."></p>
-
-                </div>
-
-                <div class="col-12 align-self-end text-center">
-                    <a class="scroll-down-1 scroll-down-white" href="#section-content"><span></span></a>
-                </div>
-
-            </div>
-
-        </div>
-    </header>
-@endsection
 @section('title')
-   {{$post->title}}
+    {{$post->title}}
 @endsection
 @section('content')
-    <div class="section" id="section-content">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-
-                    {!! $post->content !!}
-
-                </div>
-            </div>
-            <div class="mt-3">
-                <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
-            </div>
-
-                    <div class="gap-xy-2 mt-6">
-                        @foreach($post->tags as $tag)
-                        <a class="badge badge-pill badge-secondary" href="{{route('tags.posts', $tag->id)}}">{{$tag->name}}</a>
-                        @endforeach
-                    </div>
-
-                </div>
-            </div>
-
-
+    <div class="stunning-header stunning-header-bg-lightviolet">
+        <div class="stunning-header-content">
+            <h1 class="stunning-header-title">{{$post->title}}</h1>
         </div>
     </div>
-    <div class="section bg-gray">
-        <div class="container">
+    <div class="container">
+        <div class="row medium-padding120">
+            <main class="main">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <article class="hentry post post-standard-details">
 
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
+                        <div class="post-thumb">
+                            @if($post->image)
+                                <img src="{{$post->image}}" alt="seo">
+                            @endif
+                        </div>
 
-                    <div class="media-list">
+                        <div class="post__content">
 
-                        <div class="media">
-                            <img class="avatar avatar-sm mr-4" src="../assets/img/avatar/1.jpg" alt="...">
 
-                            <div class="media-body">
-                                <div class="small-1">
-                                    <strong>Maryam Amiri</strong>
-                                    <time class="ml-4 opacity-70 small-3" datetime="2018-07-14 20:00">24 min ago</time>
+                            <div class="post-additional-info">
+
+                                <div class="post__author author vcard">
+                                    Posted by
+
+                                    <div class="post__author-name fn">
+                                        <a href="#" class="post__author-link">{{$post->user->name}}</a>
+                                    </div>
+
                                 </div>
-                                <p class="small-2 mb-0">Thoughts his tend and both it fully to would the their reached drew project the be I hardly just tried constructing I his wonder, that his software and need out where didn't the counter productive.</p>
+
+                                <span class="post__date">
+
+                                <i class="seoicon-clock"></i>
+
+                                <time class="published" datetime="2016-03-20 12:00:00">
+                                   {{$post->created_at->toFormattedDateString()}}
+                                </time>
+
+                            </span>
+
+                                <span class="category">
+                                <i class="seoicon-tags"></i>
+                                    @foreach($post->tags as $tag)
+                                        <a href="{{route('tags.posts', $tag->id)}}">{{$tag->name }} {{ !$loop->last ? ', ' : ''}}</a>
+                                    @endforeach
+                            </span>
+
+                            </div>
+
+                            <div class="post__content-info">
+
+                                <p class="post__subtitle">{{$post->description}}
+                                </p>
+
+                                <div>
+                                    {!! $post->content !!}
+                                </div>
+
+                                <div class="widget w-tags">
+                                    <div class="tags-wrap">
+                                        <a href="{{route('categories.posts', $post->category->id)}}"
+                                           class="w-tags-item">{{$post->category->name}}</a>
+                                        {{--                                        @foreach($post->tags as $tag)--}}
+                                        {{--                                        <a href="{{route('tags.posts', $tag->id)}}" class="w-tags-item">{{$tag->name}}</a>--}}
+                                        {{--                                        @endforeach--}}
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
-
-
-                        <div class="media">
-                            <img class="avatar avatar-sm mr-4" src="../assets/img/avatar/2.jpg" alt="...">
-
-                            <div class="media-body">
-                                <div class="small-1">
-                                    <strong>Hossein Shams</strong>
-                                    <time class="ml-4 opacity-70 small-3" datetime="2018-07-14 20:00">6 hours ago</time>
-                                </div>
-                                <p class="small-2 mb-0">Was my suppliers, has concept how few everything task music.</p>
-                            </div>
+                        <div class="socials">Share:
+                            <a href="#" class="social__item">
+                                <i class="seoicon-social-facebook"></i>
+                            </a>
+                            <a href="#" class="social__item">
+                                <i class="seoicon-social-twitter"></i>
+                            </a>
+                            <a href="#" class="social__item">
+                                <i class="seoicon-social-linkedin"></i>
+                            </a>
+                            <a href="#" class="social__item">
+                                <i class="seoicon-social-google-plus"></i>
+                            </a>
+                            <a href="#" class="social__item">
+                                <i class="seoicon-social-pinterest"></i>
+                            </a>
                         </div>
 
+                    </article>
 
+                    <div class="blog-details-author">
 
-                        <div class="media">
-                            <img class="avatar avatar-sm mr-4" src="../assets/img/avatar/3.jpg" alt="...">
+                        <div class="blog-details-author-thumb">
+                            @if(optional($post->user->profile)->avatar)
+                                <img src="{{asset('storage/'.$post->user->profile->avatar)}}" style="width: 100px; height: 100px; border-radius: 50%" alt="Author">
+                            @else
+                                <img src="{{Gravatar::src($post->user->email)}}" alt="">
+                            @endif
+                        </div>
 
-                            <div class="media-body">
-                                <div class="small-1">
-                                    <strong>Sarah Hanks</strong>
-                                    <time class="ml-4 opacity-70 small-3" datetime="2018-07-14 20:00">Yesterday</time>
-                                </div>
-                                <p class="small-2 mb-0">Been me have the no a themselves, agency, it that if conduct, posts, another who to assistant done rattling forth there the customary imitation.</p>
+                        <div class="blog-details-author-content">
+                            <div class="author-info">
+                                <h5 class="author-name">{{$post->user->name}}</h5>
+                                <p class="author-info">{{$post->user->email}}</p>
+                            </div>
+                            <div class="text">{!! optional($post->user->profile)->about !!}
+                            </div>
+                            <div class="socials">
+
+                                <a href="#" class="social__item">
+                                    <img src="{{asset('app/svg/circle-facebook.svg')}}" alt="facebook">
+                                </a>
+
+                                <a href="#" class="social__item">
+                                    <img src="{{asset('app/svg/twitter.svg')}}" alt="twitter">
+                                </a>
+
+                                <a href="#" class="social__item">
+                                    <img src="{{asset('app/svg/google.svg')}}" alt="google">
+                                </a>
+
+                                <a href="#" class="social__item">
+                                    <img src="{{asset('app/svg/youtube.svg')}}" alt="youtube">
+                                </a>
+
                             </div>
                         </div>
+                    </div>
+
+                    <div class="pagination-arrow">
+                        @if($previousPost = $post->previousPost())
+                        <a href="{{route('posts.detail', $previousPost->getPostParam())}}" class="btn-prev-wrap">
+                            <svg class="btn-prev">
+                                <use xlink:href="#arrow-left"></use>
+                            </svg>
+                            <div class="btn-content">
+                                <div class="btn-content-title">Previous Post</div>
+                                <p class="btn-content-subtitle">{{$previousPost->title}}</p>
+                            </div>
+                        </a>
+                        @endif
+                        @if($nextPost = $post->nextPost())
+                        <a href="{{route('posts.detail', $nextPost->getPostParam())}}" class="btn-next-wrap">
+                            <div class="btn-content">
+                                <div class="btn-content-title">Next Post</div>
+                                <p class="btn-content-subtitle">{{$nextPost->title}}</p>
+                            </div>
+                            <svg class="btn-next">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
+                        </a>
+                        @endif
+                    </div>
+
+                    <div class="comments">
+
+                        <div class="heading text-center">
+                            <h4 class="h1 heading-title">Comments</h4>
+                            <div class="heading-line">
+                                <span class="short-line"></span>
+                                <span class="long-line"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
 
                     </div>
 
 
-                    <hr>
-
-
-                    <div id="disqus_thread"></div>
-
                 </div>
-            </div>
 
+                <!-- End Post Details -->
+
+                <!-- Sidebar-->
+
+                <div class="col-lg-12">
+                    <aside aria-label="sidebar" class="sidebar sidebar-right">
+                        <div class="widget w-tags">
+                            <div class="heading text-center">
+                                <h4 class="heading-title">ALL BLOG TAGS</h4>
+                                <div class="heading-line">
+                                    <span class="short-line"></span>
+                                    <span class="long-line"></span>
+                                </div>
+                            </div>
+
+                            <div class="tags-wrap">
+                                <a href="#" class="w-tags-item">SEO</a>
+                                <a href="#" class="w-tags-item">Advertising</a>
+                                <a href="#" class="w-tags-item">Business</a>
+                                <a href="#" class="w-tags-item">Optimization</a>
+                                <a href="#" class="w-tags-item">Digital Marketing</a>
+                                <a href="#" class="w-tags-item">Social</a>
+                                <a href="#" class="w-tags-item">Keyword</a>
+                                <a href="#" class="w-tags-item">Strategy</a>
+                                <a href="#" class="w-tags-item">Audience</a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- End Sidebar-->
+
+            </main>
         </div>
     </div>
 @endsection
@@ -123,12 +222,13 @@
          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
 
         var disqus_config = function () {
-        this.page.url = "{{route('posts.detail', $post->getPostParam())}}";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "{{$post->getPostParam()}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.url = "{{route('posts.detail', $post->getPostParam())}}";  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = "{{$post->getPostParam()}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
 
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-608e56495ef6a28a"></script>
 

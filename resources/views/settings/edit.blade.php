@@ -46,6 +46,15 @@
                         </div>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="">About</label>
+                        <textarea class="form-control @error('about') is-invalid @enderror" name="about" id="about" cols="30" rows="10">{{old('about', $setting->about)}}</textarea>
+                        @error('about')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
                     <button class="btn btn-success">Update</button>
                 </form>
             </div>
@@ -54,4 +63,14 @@
 
 @endsection
 
-
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(function(){
+            $('#about').summernote()
+        })
+    </script>
+@endsection
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+@endsection

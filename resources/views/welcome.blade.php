@@ -44,7 +44,7 @@
 
                                 <span class="category">
                                             <i class="seoicon-tags"></i>
-                                            <a href="#">{{$firstPost->category->name}}</a>
+                                            <a href="{{route('categories.posts', $firstPost->category->id)}}">{{$firstPost->category->name}}</a>
                                         </span>
 
                                 <span class="post__comments">
@@ -98,7 +98,7 @@
 
                                 <span class="category">
                                             <i class="seoicon-tags"></i>
-                                            <a href="#">{{$secondPost->category->name}}</a>
+                                            <a href="{{route('categories.posts', $secondPost->category->id)}}">{{$secondPost->category->name}}</a>
                                         </span>
 
                                 <span class="post__comments">
@@ -148,7 +148,7 @@
 
                                 <span class="category">
                                             <i class="seoicon-tags"></i>
-                                            <a href="#">{{$thirdPost->category->name}}</a>
+                                            <a href="{{route('categories.posts', $thirdPost->category->id)}}">{{$thirdPost->category->name}}</a>
                                         </span>
 
                                 <span class="post__comments">

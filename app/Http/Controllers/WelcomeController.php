@@ -27,11 +27,13 @@ class WelcomeController extends Controller
 
     public function viewPostOfCategory(Category $category){
         $posts = $this->getPostPagination($category->posts());
-        return view('frontend.category', compact('category', 'posts'));
+        $tags = Tag::latest()->take(5)->get();
+        return view('frontend.category', compact('category', 'posts', 'tags'));
     }
     public function viewPostOfTag(Tag $tag){
        $posts = $this->getPostPagination($tag->posts());
-        return view('frontend.tag', compact('tag', 'posts'));
+        $tags = Tag::latest()->take(5)->get();
+        return view('frontend.tag', compact('tag', 'posts', 'tags'));
     }
 
     public function getPostPagination($posts, $paginateNumber = 2){

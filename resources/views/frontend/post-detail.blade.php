@@ -74,21 +74,7 @@
                         </div>
 
                         <div class="socials">Share:
-                            <a href="#" class="social__item">
-                                <i class="seoicon-social-facebook"></i>
-                            </a>
-                            <a href="#" class="social__item">
-                                <i class="seoicon-social-twitter"></i>
-                            </a>
-                            <a href="#" class="social__item">
-                                <i class="seoicon-social-linkedin"></i>
-                            </a>
-                            <a href="#" class="social__item">
-                                <i class="seoicon-social-google-plus"></i>
-                            </a>
-                            <a href="#" class="social__item">
-                                <i class="seoicon-social-pinterest"></i>
-                            </a>
+                            <div class="addthis_inline_share_toolbox"></div>
                         </div>
 
                     </article>
@@ -208,7 +194,6 @@
 @endsection
 
 @section('script')
-{{--    <script src="{{asset('js/embed.js')}}"></script>--}}
     <script>
 
         /**

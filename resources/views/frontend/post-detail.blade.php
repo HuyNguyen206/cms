@@ -46,9 +46,7 @@
 
                                 <span class="category">
                                 <i class="seoicon-tags"></i>
-                                    @foreach($post->tags as $tag)
-                                        <a href="{{route('tags.posts', $tag->id)}}">{{$tag->name }} {{ !$loop->last ? ', ' : ''}}</a>
-                                    @endforeach
+                                        <a href="{{route('categories.posts', $post->category->id)}}">{{$post->category->name }} </a>
                             </span>
 
                             </div>
@@ -167,6 +165,7 @@
                                 <span class="short-line"></span>
                                 <span class="long-line"></span>
                             </div>
+                            <div id="disqus_thread"></div>
                         </div>
                     </div>
 
@@ -193,15 +192,9 @@
                             </div>
 
                             <div class="tags-wrap">
-                                <a href="#" class="w-tags-item">SEO</a>
-                                <a href="#" class="w-tags-item">Advertising</a>
-                                <a href="#" class="w-tags-item">Business</a>
-                                <a href="#" class="w-tags-item">Optimization</a>
-                                <a href="#" class="w-tags-item">Digital Marketing</a>
-                                <a href="#" class="w-tags-item">Social</a>
-                                <a href="#" class="w-tags-item">Keyword</a>
-                                <a href="#" class="w-tags-item">Strategy</a>
-                                <a href="#" class="w-tags-item">Audience</a>
+                                @foreach($post->tags as $tag)
+                                    <a href="{{route('tags.posts', $tag->id)}}" class="w-tags-item">{{$tag->name }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </aside>
@@ -215,8 +208,9 @@
 @endsection
 
 @section('script')
-    <script src="{{asset('js/embed.js')}}"></script>
+{{--    <script src="{{asset('js/embed.js')}}"></script>--}}
     <script>
+
         /**
          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
@@ -225,8 +219,14 @@
             this.page.url = "{{route('posts.detail', $post->getPostParam())}}";  // Replace PAGE_URL with your page's canonical URL variable
             this.page.identifier = "{{$post->getPostParam()}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
-
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://http-cms-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
     </script>
+
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
             Disqus.</a></noscript>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->

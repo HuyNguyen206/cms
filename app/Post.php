@@ -61,11 +61,13 @@ class Post extends Model
 //        }
 
     public function nextPost(){
-            return Post::where('created_at', '<', $this->created_at)->latest()->first();
+//            return Post::where('created_at', '<', $this->created_at)->latest()->first();
+                return Post::where('id', '>', $this->id)->orderBy('id')->first();
     }
 
     public function previousPost(){
-            return Post::where('created_at', '>', $this->created_at)->oldest()->first();
+//            return Post::where('created_at', '>', $this->created_at)->oldest()->first();
+        return Post::where('id', '<', $this->id)->orderBy('id', 'desc')->first();
     }
 
 }

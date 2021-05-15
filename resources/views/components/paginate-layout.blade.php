@@ -9,7 +9,7 @@
 
             <div class="row">
                 <div class="case-item-wrap">
-                    @foreach($posts as $post)
+                    @forelse($posts as $post)
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                             <div class="case-item">
                                 @if($post->image)
@@ -20,7 +20,11 @@
                                 <h6 class="case-item__title"><a href="{{route('posts.detail', $post->getPostParam())}}">{{$post->title}}</a></h6>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <h6>
+                            {{request()->query('search') ? 'Not Found' : 'There aren\'t any post yet'}}
+                        </h6>
+                    @endforelse
                 </div>
             </div>
             <div class="row">

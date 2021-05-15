@@ -10,16 +10,19 @@ class Header extends Component
 {
     public $categories;
     public $siteName;
+    public $categoryId;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($categoryId)
     {
         //
         $this->categories = Category::latest()->take(4)->get();
         $this->siteName = Setting::firstOrFail()->site_name;
+        $this->categoryId = $categoryId;
     }
 
     /**

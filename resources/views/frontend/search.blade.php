@@ -1,9 +1,9 @@
-@extends('frontend.layout.app-frontend', compact('categoryId'))
+@extends('frontend.layout.app-frontend')
 @section('title')
-    {{$category->name}}
+    {{'Search result for: '.request()->query('search')}}
 @endsection
 @section('content')
-    <x-paginate-layout :object="$category" :posts="$posts"></x-paginate-layout>
+    <x-paginate-layout :posts="$posts"></x-paginate-layout>
 @endsection
 
 @section('css')
@@ -23,10 +23,3 @@
 }
 </style>
 @endsection
-@push('mini-style')
-    <style>
-        .category-active{
-            color: #4cc2c0;
-        }
-    </style>
-@endpush

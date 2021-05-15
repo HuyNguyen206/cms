@@ -21,7 +21,7 @@
                 <ul class="primary-menu-menu" style="overflow: hidden;">
                     @foreach($categories as $category)
                     <li class="">
-                        <a href="{{route('categories.posts', $category->id)}}">{{$category->name}}</a>
+                        <a href="{{route('categories.posts', $category->id)}}" class="@if(isset($categoryId) && $categoryId == $category->id) category-active @endif">{{$category->name}}</a>
                     </li>
                     @endforeach
                 </ul>
@@ -36,3 +36,4 @@
         </div>
     </div>
 </header>
+

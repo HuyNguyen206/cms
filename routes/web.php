@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('subscribe', 'WelcomeController@subscribe')->name('subscribe');
 //Route::get('/','WelcomeController@index')->name('welcome');
 // Generates /users & /users/page/{page}
 Route::paginate('/', 'WelcomeController@index')->name('welcome');
 Route::paginate('categories/type/{category}', 'WelcomeController@viewPostOfCategory')->name('categories.posts');
 Route::paginate('tags/{tag}', 'WelcomeController@viewPostOfTag')->name('tags.posts');
+//Route::paginate('search/type/{category}', 'WelcomeController@viewPostOfCategory')->name('categories.posts');
 Route::get('post/{postSlugId}', 'WelcomeController@viewPost')->name('posts.detail');
 
 Auth::routes();

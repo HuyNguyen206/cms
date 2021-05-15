@@ -98,7 +98,7 @@
                             </div>
                             <div class="socials">
 
-                                <a href="#" class="social__item">
+                                <a href="{{$post->user->profile->facebook}}" class="social__item" target="_blank">
                                     <img src="{{asset('app/svg/circle-facebook.svg')}}" alt="facebook">
                                 </a>
 
@@ -110,7 +110,7 @@
                                     <img src="{{asset('app/svg/google.svg')}}" alt="google">
                                 </a>
 
-                                <a href="#" class="social__item">
+                                <a href="{{$post->user->profile->youtube}}" class="social__item" target="_blank">
                                     <img src="{{asset('app/svg/youtube.svg')}}" alt="youtube">
                                 </a>
 
@@ -218,3 +218,10 @@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-608e56495ef6a28a"></script>
 
 @endsection
+@push('mini-style')
+    <style>
+        .category-active{
+            color: #4cc2c0;
+        }
+    </style>
+@endpush

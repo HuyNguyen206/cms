@@ -14,18 +14,26 @@ class PaginateLayout extends Component
     public $posts;
     public $tags;
     public $title;
+    private $object;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(LengthAwarePaginator $posts, $title)
+    public function __construct($object = null, LengthAwarePaginator $posts)
     {
         //
         $this->posts = $posts;
         $this->tags = Tag::all();
-        $this->title = $title;
+        $this->object = $object;
+        $search = request()->query('search');
+        if ($object != null) {
+            $this->title = $search ? 'Search result for:' . $search : $object->name;
+        } else {
+            $this->title = 'Search result for:' . $search;
+        }
+
     }
 
     /**

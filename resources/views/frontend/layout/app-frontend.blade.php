@@ -26,6 +26,7 @@
     <!--External fonts-->
 
     <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{asset('css/toastr.css')}}">
     <style>
         .padded-50{
             padding: 40px;
@@ -39,7 +40,7 @@
     </style>
 
     @yield('css')
-{{--    @yield('mini-style')--}}
+    @stack('mini-style')
 </head>
 
 
@@ -47,7 +48,7 @@
 
 <div class="content-wrapper">
 
-   <x-header></x-header>
+   <x-header :categoryId="$categoryId ?? null"></x-header>
 
  @yield('content')
     <!-- End Subscribe Form -->
@@ -132,9 +133,20 @@
 <script src="{{asset('app/js/velocity.min.js')}}"></script>
 <script src="{{asset('app/js/ScrollMagic.min.js')}}"></script>
 <script src="{{asset('app/js/animation.velocity.min.js')}}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
 <!-- ...end JS Script -->
 @yield('script')
+<script>
+    @if(session('success'))
+    toastr.success('{{session('success')}}')
+    @endif
+    @if(session('error'))
+    toastr.error('{{session('error')}}')
+    @endif
+    @if(session('message'))
+    toastr.warning('{{session('message')}}')
+    @endif
+</script>
 </body>
 </html>

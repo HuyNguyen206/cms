@@ -1,9 +1,9 @@
-@extends('frontend.layout.app-frontend')
+@extends('frontend.layout.app-frontend', compact('categoryId'))
 @section('title')
     {{$tag->name}}
 @endsection
 @section('content')
-    <x-paginate-layout :title="$tag->name" :posts="$posts"></x-paginate-layout>
+    <x-paginate-layout :object="$tag" :posts="$posts"></x-paginate-layout>
 @endsection
 @section('css')
     <style>
@@ -22,3 +22,4 @@
         }
     </style>
 @endsection
+

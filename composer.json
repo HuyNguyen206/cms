@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
         "michaloravec/laravel-paginateroute": "^1.0",
+        "spatie/laravel-newsletter": "^4.9",
         "thomaswelton/laravel-gravatar": "~1.0"
     },
     "require-dev": {
